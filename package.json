@@ -4,7 +4,6 @@
     "author": "Daniel Milde <daniel@milde.cz>",
     "version": "0.0.1",
     "dependencies": {
-      "express": "2.5.2",
       "hogan.js": "1.0.2"
     },
     "keywords": ["express", "hogan"],
