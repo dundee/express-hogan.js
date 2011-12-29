@@ -7,5 +7,6 @@
       "hogan.js": "1.0.2"
     },
     "keywords": ["express", "hogan"],
-    "repository": "git://github.com/Dundee/express-hogan.js.git"
+    "repository": "git://github.com/Dundee/express-hogan.js.git",
+    "main": "./lib/express-hogan.js"
 }
