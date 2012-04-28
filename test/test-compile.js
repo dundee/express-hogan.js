@@ -31,13 +31,13 @@ exports.testComplexCompile = function(test){
 
 exports.testCompilePartials = function(test){
 
-	expressHogan.preparePartials(__dirname + '/data', ['part'], function(partials){
-		var output = expressHogan.compile('p:{{> part}}')({
+	expressHogan.preparePartials(__dirname + '/data', ['part', 'part2'], function(partials){
+		var output = expressHogan.compile('p:{{> part}} {{> part2}}')({
 			locals: {},
 			partials: partials
 		});
-		test.equals('p:partial\n', output);
-		
+		test.equals('p:partial\n partial2\n', output);
+
 		test.done();
 	});
 };
