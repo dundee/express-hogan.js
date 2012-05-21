@@ -41,3 +41,15 @@ exports.testCompilePartials = function(test){
 		test.done();
 	});
 };
+
+exports.testCompileWithDynamicHelpers = function(test){
+
+	var options = {'app':{}};
+	options.app.dynamicViewHelpers = {foo:'Foo'};
+	options.foo = 'Foo';
+
+	var output = expressHogan.compile('<h1>{{foo}}</h1>')(options);
+	test.equals('<h1>Foo</h1>', output);
+
+	test.done();
+}
