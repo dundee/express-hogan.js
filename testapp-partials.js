@@ -5,7 +5,7 @@ var app = module.exports = express.createServer();
 
 app.configure(function() {
 	app.set('views', __dirname + '/views');
-	app.register('.html', expressHogan);
+	app.engine('hjs', expressHogan.renderFile);
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(app.router);
@@ -28,11 +28,11 @@ expressHogan.preparePartials(
 	[ 'part' ],
 	function(partials) {
 		app.get('/', function(req, res) {
-			return res.render('index.html', {
-				locals: {
-					title: 'Express test',
-					message: 'using Hogan templating system'
-				},
+			res.locals = {
+				title: 'Express test',
+				message: 'using Hogan templating system'
+			};
+			return res.render('index.hjs', {
 				partials: partials
 			});
 		});
