@@ -1,29 +1,25 @@
 var expressHogan = require('../lib/express-hogan');
 
 exports.testSimpleCompile = function(test){
-    test.equals('test', expressHogan.compile('test')({locals: {}}));
+    test.equals('test', expressHogan.render('test', {locals: {}}));
 
-	test.equals('test-1', expressHogan.compile('test-{{aa}}')({locals: {aa: 1}}));
+	test.equals('test-1', expressHogan.render('test-{{aa}}', {locals: {aa: 1}}));
 
-	test.equals('<html><h1>Hello</h1></html>', expressHogan.compile(
-		'<html>{{{message}}}</html>'
-	)({locals: {
-		message: '<h1>Hello</h1>'
-	}}));
+	test.equals('<html><h1>Hello</h1></html>', expressHogan.render(
+		'<html>{{{message}}}</html>',
+		{locals: {
+			message: '<h1>Hello</h1>'
+		}})
+	);
 
     test.done();
 };
 
 exports.testComplexCompile = function(test){
 
-	var template = expressHogan.compile('<h1>{{message}}</h1>');
-	var layout = expressHogan.compile('<html>{{{body}}}</html>');
+	var template = expressHogan.render('<h1>{{message}}</h1>', {locals: { message: 'Hello' }});
+	output = expressHogan.render('<html>{{{body}}}</html>', {locals: { body: template }});
 
-	output = layout({locals: {
-		body: template({locals: {
-			message: 'Hello'
-		}})
-	}});
 	test.equals('<html><h1>Hello</h1></html>', output);
 
     test.done();
@@ -32,7 +28,7 @@ exports.testComplexCompile = function(test){
 exports.testCompilePartials = function(test){
 
 	expressHogan.preparePartials(__dirname + '/data', ['part', 'part2'], function(partials){
-		var output = expressHogan.compile('p:{{> part}} {{> part2}}')({
+		var output = expressHogan.render('p:{{> part}} {{> part2}}', {
 			locals: {},
 			partials: partials
 		});
@@ -48,7 +44,7 @@ exports.testCompileWithDynamicHelpers = function(test){
 	options.app.dynamicViewHelpers = {foo:'Foo'};
 	options.foo = 'Foo';
 
-	var output = expressHogan.compile('<h1>{{foo}}</h1>')(options);
+	var output = expressHogan.render('<h1>{{foo}}</h1>', options);
 	test.equals('<h1>Foo</h1>', output);
 
 	test.done();

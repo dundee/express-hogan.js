@@ -21,11 +21,11 @@
     $ node testapp.js
 
 ## Usage
-    
+
     // include Express-hogan
     var expressHogan = require('express-hogan.js');
 
     // register templating
-    app.register('.html', expressHogan);
+    app.engine('hjs', expressHogan.renderFile);
 
     // more can be found in testapp.js
