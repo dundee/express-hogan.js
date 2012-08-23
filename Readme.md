@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/Dundee/express-hogan.js.png)](http://travis-ci.org/Dundee/express-hogan.js)
 
 # Express - Hogan.js adapter
 
